@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-espresso bg-sand antialiased;
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Sin flechas en inputs numéricos (PIN) */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Scrollbar fina */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(45, 70, 20, 0.18);
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  /* Fondo corporativo: gradiente verde suave */
+  .app-bg {
+    background-image: linear-gradient(to bottom right, #f8fcf4, #eef6e3 50%, #dcefca);
+  }
+}
