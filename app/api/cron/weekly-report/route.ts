@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
 
     const emailResponse = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: ['impulsedigitaius@gmail.com', 'jessica.ferran85@gmail.com'],
+      to: 'impulsedigitaius@gmail.com',
       subject: `Lox Life Camps Weekly Hours Report - ${fromDate} to ${toDate}`,
       html: `
         <p>Dear Lox Life Camps,</p>
