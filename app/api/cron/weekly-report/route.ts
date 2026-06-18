@@ -81,7 +81,7 @@ export async function GET(req: NextRequest) {
     const pdfFileName = `weekly-report-${fromDate}-to-${toDate}.pdf`;
 
     const emailResponse = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'contact@impulsedigitai.com',
       to: ['impulsedigitaius@gmail.com', 'jessica.ferran85@gmail.com'],
       subject: `Lox Life Camps Weekly Hours Report - ${fromDate} to ${toDate}`,
       html: `
