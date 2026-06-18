@@ -99,10 +99,16 @@ export async function GET(req: NextRequest) {
       ],
     });
 
+    if (emailResponse.error) {
+      throw new Error(
+        `Failed to send email: ${emailResponse.error.message}`
+      );
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Weekly report sent successfully',
-      emailId: emailResponse.data?.id || emailResponse.id,
+      emailId: emailResponse.data?.id,
       period: { from: fromDate, to: toDate },
       employees: payrollRows.length,
       totalHours: payrollRows.reduce((sum, row) => sum + row.workedHours, 0),
