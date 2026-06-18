@@ -21,9 +21,10 @@ Turso/LibSQL · Zod. Optimizado para Vercel.
    de horas extra.
 4. **Admin · Nómina** (`/admin/payroll`): filtro por período (semanal / quincenal / personalizado)
    y cálculo automático por empleado.
-5. **Informe Semanal Automático** (`/api/cron/weekly-report`): cada viernes 7:30 PM (hora Florida),
-   genera y envía PDF con horas trabajadas de cada empleado (lunes–viernes) vía Resend a
-   impulsedigitaius@gmail.com y jessica.ferran85@gmail.com. Branding ImpulseDigitAI integrado.
+5. **Automated Weekly Report** (`/api/cron/weekly-report`): Every Friday at 7:30 PM (Florida time),
+   generates and sends a PDF with employee hours worked (Monday–Friday) via Resend to
+   impulsedigitaius@gmail.com and jessica.ferran85@gmail.com. Full ImpulseDigitAI branding with logo,
+   colors (#1B3A8C navy, #E8ECF5 light blue), contact info, and website footer. All in English.
 
 ## Lógica de nómina (`lib/payroll.ts`)
 
@@ -81,4 +82,7 @@ Turso sigue siendo la única fuente de verdad. (Ver el script de referencia en `
    - `RESEND_API_KEY`: obtenida de https://resend.com/api-keys
    - `CRON_SECRET`: cadena aleatoria de 32+ caracteres (protege el endpoint del cron)
 3. Deploy. El esquema de Turso se aplica una sola vez con `turso db shell` (paso 3 de arriba).
-4. Una vez deployado, el cron se ejecutará automáticamente cada viernes 7:30 PM Florida time.
+4. **Configura tu dominio en Resend:** Ve a https://resend.com/domains, agrega tu dominio y verifica
+   los registros DNS en tu proveedor de hosting (Hostinger, etc.).
+5. Una vez deployado, el cron se ejecutará automáticamente cada viernes 7:30 PM Florida time.
+   Los informes se envían desde tu dominio verificado (ej: contact@tudominio.com).

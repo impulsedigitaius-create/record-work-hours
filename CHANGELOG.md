@@ -127,15 +127,17 @@ public/
 #### Settings Tab (`/admin/settings`)
 - Weekly hours · Working days — Overtime Multiplier removed from UI (stays in DB)
 
-### Weekly Report Automation (`/api/cron/weekly-report`)
+### Weekly Report Automation (`/api/cron/weekly-report`) ✅ LIVE
 - **Schedule:** Every Friday at 7:30 PM Florida time (23:30 UTC, via Vercel Cron)
 - **Recipients:** impulsedigitaius@gmail.com · jessica.ferran85@gmail.com
+- **Email From:** contact@impulsedigitai.com (domain verified in Resend)
 - **PDF Report:** ImpulseDigitAI branded (navy #1B3A8C · light blue #E8ECF5)
-  - Header: "IMPULSEDIGITAI LLC · Weekly Hours Report"
-  - Table: Employee names | Hours worked (Mon–Fri)
+  - Header: ImpulseDigitAI logo + "IMPULSEDIGITAI LLC · Weekly Hours Report"
+  - Table: Employee names | Hours worked (Monday–Friday range)
   - Total banner: Period hours + employee count
-  - Footer: Generated timestamp
-- **Email:** Sent via Resend (onboarding@resend.dev, no domain verification needed)
+  - Footer: contact@impulsedigitai.com · www.impulsedigitai.com
+- **Email:** Sent via Resend with verified domain
+- **Language:** All content in English
 - **Security:** Protected by `CRON_SECRET` header authentication
 
 ---
