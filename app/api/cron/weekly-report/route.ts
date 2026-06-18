@@ -1,4 +1,3 @@
-import React from 'react';
 import { NextRequest, NextResponse } from 'next/server';
 import { renderToBuffer } from '@react-pdf/renderer';
 import { WeeklyReportPDF } from '@/components/pdf/WeeklyReportPDF';
@@ -70,7 +69,7 @@ export async function GET(req: NextRequest) {
 
     // Generate PDF
     const pdfBuffer = await renderToBuffer(
-      React.createElement(WeeklyReportPDF, {
+      WeeklyReportPDF({
         rows: payrollRows,
         from: fromDate,
         to: toDate,

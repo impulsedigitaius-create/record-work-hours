@@ -144,12 +144,12 @@ interface WeeklyReportPDFProps {
   };
 }
 
-export const WeeklyReportPDF: React.FC<WeeklyReportPDFProps> = ({
+export function WeeklyReportPDF({
   rows,
   from,
   to,
   settings,
-}) => {
+}: WeeklyReportPDFProps) {
   const totalHours = rows.reduce((sum, row) => sum + row.workedHours, 0);
 
   // Format dates for display
@@ -234,4 +234,4 @@ export const WeeklyReportPDF: React.FC<WeeklyReportPDFProps> = ({
       </Page>
     </Document>
   );
-};
+}
