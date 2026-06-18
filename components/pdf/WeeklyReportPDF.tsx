@@ -167,7 +167,7 @@ export function WeeklyReportPDF({
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Image
-              src="/logo.png"
+              src="https://record-work-hours-n4rw.vercel.app/logo.png"
               style={styles.logo}
             />
             <View style={styles.headerText}>
