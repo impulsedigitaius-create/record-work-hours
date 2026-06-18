@@ -3,7 +3,7 @@
 
 **Stack:** Next.js 15 · React 19 · TypeScript · Tailwind CSS 3 · Framer Motion · Turso/LibSQL · Google Apps Script  
 **Live:** https://loxlifecamp-time-clock.vercel.app · https://record-work-hours.vercel.app  
-**Status:** ✅ Delivered to client — 2026-06-10
+**Status:** ✅ Delivered to client — 2026-06-10 · ✅ Weekly Report Automation added — 2026-06-18
 
 ---
 
@@ -30,6 +30,8 @@ app/
     payroll/route.ts          — Payroll calculation
     settings/route.ts         — Read/update settings
     auth/login · logout       — Session auth
+    cron/
+      weekly-report/route.ts  — Vercel Cron: generates + sends weekly PDF report every Friday 7:30 PM
     admin/
       today/route.ts          — Today's attendance status
       punches/route.ts        — Manual punch entry (GET + POST)
@@ -46,6 +48,8 @@ lib/
   sheets.ts                   — Sheets webhook (fire-and-forget)
 components/
   admin/admin-shell.tsx       — Header + tabs (Today/Employees/Payroll/Settings)
+  pdf/
+    WeeklyReportPDF.tsx       — PDF component: employee hours table + totals + ImpulseDigitAI branding
   ui/                         — Button, Card, Logo, EmployeeAvatar, LangToggle
 google-sheets/
   SyncTurso.gs                — Google Apps Script (Turso HTTP API sync) ✅ ACTIVE
@@ -123,6 +127,17 @@ public/
 #### Settings Tab (`/admin/settings`)
 - Weekly hours · Working days — Overtime Multiplier removed from UI (stays in DB)
 
+### Weekly Report Automation (`/api/cron/weekly-report`)
+- **Schedule:** Every Friday at 7:30 PM Florida time (23:30 UTC, via Vercel Cron)
+- **Recipients:** impulsedigitaius@gmail.com · jessica.ferran85@gmail.com
+- **PDF Report:** ImpulseDigitAI branded (navy #1B3A8C · light blue #E8ECF5)
+  - Header: "IMPULSEDIGITAI LLC · Weekly Hours Report"
+  - Table: Employee names | Hours worked (Mon–Fri)
+  - Total banner: Period hours + employee count
+  - Footer: Generated timestamp
+- **Email:** Sent via Resend (onboarding@resend.dev, no domain verification needed)
+- **Security:** Protected by `CRON_SECRET` header authentication
+
 ---
 
 ## 🔢 Payroll Calculation
@@ -182,6 +197,8 @@ TURSO_AUTH_TOKEN=<rotated 2026-06-08>
 ADMIN_PASSWORD=1313
 SESSION_SECRET=<32-char hex>
 SHEETS_WEBHOOK_URL=
+RESEND_API_KEY=re_xxxx    # For weekly report email delivery
+CRON_SECRET=<32-char hex> # Protects /api/cron/weekly-report endpoint
 ```
 
 ---

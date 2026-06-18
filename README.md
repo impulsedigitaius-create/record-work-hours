@@ -21,6 +21,9 @@ Turso/LibSQL · Zod. Optimizado para Vercel.
    de horas extra.
 4. **Admin · Nómina** (`/admin/payroll`): filtro por período (semanal / quincenal / personalizado)
    y cálculo automático por empleado.
+5. **Informe Semanal Automático** (`/api/cron/weekly-report`): cada viernes 7:30 PM (hora Florida),
+   genera y envía PDF con horas trabajadas de cada empleado (lunes–viernes) vía Resend a
+   impulsedigitaius@gmail.com y jessica.ferran85@gmail.com. Branding ImpulseDigitAI integrado.
 
 ## Lógica de nómina (`lib/payroll.ts`)
 
@@ -74,5 +77,8 @@ Turso sigue siendo la única fuente de verdad. (Ver el script de referencia en `
 ## Despliegue en Vercel
 
 1. Importá el repo en Vercel.
-2. Cargá las mismas variables de entorno del `.env.local`.
+2. Cargá las mismas variables de entorno del `.env.local`, más:
+   - `RESEND_API_KEY`: obtenida de https://resend.com/api-keys
+   - `CRON_SECRET`: cadena aleatoria de 32+ caracteres (protege el endpoint del cron)
 3. Deploy. El esquema de Turso se aplica una sola vez con `turso db shell` (paso 3 de arriba).
+4. Una vez deployado, el cron se ejecutará automáticamente cada viernes 7:30 PM Florida time.
