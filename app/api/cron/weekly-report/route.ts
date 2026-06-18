@@ -10,7 +10,7 @@ import { calculatePayroll } from '@/lib/payroll';
 import { todaySite } from '@/lib/timezone';
 
 export async function GET(req: NextRequest) {
-  // Verify CRON_SECRET from request header
+  // Verify CRON_SECRET from request header (Bearer token)
   const authHeader = req.headers.get('authorization');
   const expectedAuth = `Bearer ${process.env.CRON_SECRET}`;
 
