@@ -5,16 +5,8 @@ import {
   Text,
   View,
   StyleSheet,
-  Font,
 } from '@react-pdf/renderer';
 import { PayrollRow } from '@/lib/types';
-
-// Register Montserrat Bold from Google Fonts
-Font.register({
-  family: 'Montserrat',
-  src: 'https://fonts.gstatic.com/s/montserrat/v26/JTUQjIg69CK48gIEo1z8kRQN.ttf',
-  fontWeight: 700,
-});
 
 const styles = StyleSheet.create({
   page: {
@@ -45,13 +37,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#1B3A8C',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Helvetica-Bold',
   },
   reportTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#1B3A8C',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Helvetica-Bold',
     marginBottom: 8,
   },
   subHeader: {
