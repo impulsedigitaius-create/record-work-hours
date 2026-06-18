@@ -102,7 +102,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Weekly report sent successfully',
-      emailId: emailResponse.id,
+      emailId: emailResponse.data?.id || emailResponse.id,
       period: { from: fromDate, to: toDate },
       employees: payrollRows.length,
       totalHours: payrollRows.reduce((sum, row) => sum + row.workedHours, 0),
