@@ -3,7 +3,19 @@
 
 **Stack:** Next.js 15 · React 19 · TypeScript · Tailwind CSS 3 · Framer Motion · Turso/LibSQL · Google Apps Script  
 **Live:** https://loxlifecamp-time-clock.vercel.app · https://record-work-hours.vercel.app  
-**Status:** ✅ Delivered to client — 2026-06-10 · ✅ Weekly Report Automation added — 2026-06-18
+**Status:** ✅ Delivered to client — 2026-06-10 · ⏸️ Weekly Report Automation **PAUSED** — 2026-08-14
+
+> **Informe semanal pausado (2026-08-14)** — a pedido del cliente/dueño, hasta nuevo aviso.
+> Se quitó el bloque `crons` de `vercel.json` (queda `{}`), por lo que Vercel deja de invocar
+> `/api/cron/weekly-report` los viernes. El código del endpoint y el email siguen intactos:
+> se puede seguir disparando a mano con `GET /api/cron/weekly-report` + `Authorization: Bearer $CRON_SECRET`.
+>
+> **Para reactivar**, restaurar en `vercel.json` y desplegar a producción:
+> ```json
+> { "crons": [ { "path": "/api/cron/weekly-report", "schedule": "30 23 * * 5" } ] }
+> ```
+> (`30 23 * * 5` = viernes 23:30 UTC — era el horario que estaba en producción.
+> En local había una edición sin desplegar a `30 22 * * 5`.)
 
 ---
 
