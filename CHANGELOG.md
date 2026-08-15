@@ -10,12 +10,14 @@
 > `/api/cron/weekly-report` los viernes. El código del endpoint y el email siguen intactos:
 > se puede seguir disparando a mano con `GET /api/cron/weekly-report` + `Authorization: Bearer $CRON_SECRET`.
 >
-> **Para reactivar**, restaurar en `vercel.json` y desplegar a producción:
+> **Para reactivar**, restaurar en `vercel.json` y desplegar con `npx vercel --prod`
+> (el proyecto NO está conectado a GitHub: los deploys salen del CLI, hacer push no despliega):
 > ```json
-> { "crons": [ { "path": "/api/cron/weekly-report", "schedule": "30 23 * * 5" } ] }
+> { "crons": [ { "path": "/api/cron/weekly-report", "schedule": "30 22 * * 5" } ] }
 > ```
-> (`30 23 * * 5` = viernes 23:30 UTC — era el horario que estaba en producción.
-> En local había una edición sin desplegar a `30 22 * * 5`.)
+> (`30 22 * * 5` = viernes 22:30 UTC ≈ 18:30 hora de Florida — era el horario que estaba
+> corriendo en producción, verificado en el deployment `dpl_FTNjDfpYqQGc3F9K4YTq8H4WH8bt`.
+> El commit anterior en git decía `30 23 * * 5`, pero eso nunca llegó a producción.)
 
 ---
 
