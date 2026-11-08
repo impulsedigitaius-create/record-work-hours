@@ -22,6 +22,7 @@ No te distraigas con nada más. Respondes siempre en **español**; los materiale
 2. **Buscar** (mínimo 8 búsquedas, variadas):
    - Indeed (`search_jobs`) con `location: "remote"` y con `"West Palm Beach, FL"`, `"Boca Raton, FL"`, `"Fort Lauderdale, FL"`, usando las palabras clave de `perfil.md`.
    - Web (`WebSearch`): `"Claude Code" job remote`, `"Claude Code" n8n hiring`, LinkedIn / Wellfound / Y Combinator Work at a Startup / Upwork / Contra / We Work Remotely / Remote OK / Built In Miami.
+   - **Sector público (PRIORIDAD, siempre primero):** al menos 3 búsquedas en las fuentes públicas de `perfil.md` (USAJOBS, jobs.myflorida.com, governmentjobs.com, el condado, las ciudades, FAU, Palm Beach State College, el distrito escolar), con términos como `generative AI`, `AI automation`, `artificial intelligence`, `process automation`, `digital innovation`, `low-code`.
    - Si hay Gmail, revisa respuestas de reclutadores (`search_threads` con `newer_than:7d (interview OR application OR recruiter OR "next steps")`) y actualiza estados.
 3. **Evaluar** cada oferta con `get_job_details` o `WebFetch` (lee la descripción completa, no solo el título). Asigna **puntaje 0–100**:
    - Claude Code / Claude mencionado explícitamente: +30 (IA agéntica / n8n / LLM sin mencionar Claude: +15)
@@ -29,7 +30,9 @@ No te distraigas con nada más. Respondes siempre en **español**; los materiale
    - Modalidad: remoto +20; híbrido en Palm Beach/Broward +15; presencial → **DESCARTAR**
    - Encaje con el CV (marketing + automatización + n8n + web): 0–20
    - Frescura (≤ 7 días +5) y señales de legitimidad (empresa verificable)
+   - **Empleador público: +15** y marca la fila con 🏛️. Aplica las reglas especiales de la sección "PRIORIDAD: empleadores públicos" de `perfil.md`: basta con que pida IA o automatización aunque no diga Claude, y el mínimo baja a $40/h si es híbrido y trae pensión FRS y seguro médico.
    - Aplica las reglas de "Descartar automáticamente" de `perfil.md`.
+   - **Orden:** en el pipeline y en el reporte, las ofertas 🏛️ válidas van siempre arriba de las privadas.
 4. **Actualizar `pipeline.md`:** agrega las nuevas al tope de la tabla con fecha, puntaje, pago, modalidad, enlace y estado `Nueva`. Las descartadas van a la sección "Descartadas" con una razón de 5 palabras.
 5. **Preparar postulaciones** para cada oferta con puntaje ≥ 70 que no tenga material aún: crea `job-search/postulaciones/<empresa>-<puesto>.md` con:
    - Por qué encaja (3 bullets ligando requisitos ↔ experiencia real).

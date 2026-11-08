@@ -4,7 +4,10 @@ Estados: `Nueva` → `Lista para postular` → `Postulado` → `Entrevista` → 
 
 _Última actualización: 2026-11-08_
 
-## Activas
+## 🏛️ Sector público (prioridad)
+_2026-11-08: no hay ofertas confirmadas aún. Busqué en Indeed y en la web: no hay puestos de IA públicos en Palm Beach que cumplan los criterios, y ningún puesto federal de IA remoto en Florida en los resultados. Hay que revisar directamente el [portal de IA de USAJOBS](https://atp-help.usajobs.gov/assets/pdf/USAJOBS_AI_recruitment_flyer.pdf), governmentjobs.com y jobs.myflorida.com._
+
+## Activas (sector privado)
 | Fecha | Puntaje | Puesto / Empresa | Pago | Modalidad | Claude Code | Estado | Siguiente acción |
 |---|---|---|---|---|---|---|---|
 | 2026-11-08 | **95** | [AI Marketing & Automation Specialist — Pacific Mind Health](https://to.indeed.com/aa9pr6sdzth2) | $55–75/h (1099, 5–15 h/sem al inicio) | Remoto EE. UU. | Sí, explícito | Lista para postular | Enviar con material de `postulaciones/pacific-mind-health-ai-marketing-automation.md`; adjuntar 1–2 builds |

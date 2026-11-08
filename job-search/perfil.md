@@ -12,6 +12,13 @@
 | Radio híbrido aceptable | Palm Beach County, Broward (Fort Lauderdale), Boca Raton, Jupiter, Delray. Miami solo si es ≤ 2 días/semana presencial |
 | Tipo de contrato | Full-time, part-time, contrato 1099 o freelance — todos válidos si cumplen el pago |
 
+## ⭐ PRIORIDAD: empleadores públicos
+Si un empleador público busca este perfil, **va primero en el pipeline y en el reporte**, aunque tenga un puntaje algo menor.
+- **Qué cuenta como público:** gobierno federal, estatal (Florida), condado (Palm Beach, Broward), ciudades (West Palm Beach, Boca Raton, Jupiter, Delray, Fort Lauderdale), distritos escolares, universidades y colleges públicos (FAU, Palm Beach State College, FIU, UF/UCF remoto), autoridades públicas (aeropuerto PBI, puertos, transporte, agua) y hospitales públicos (Health Care District of Palm Beach County).
+- **También cuentan:** contratistas de gobierno (GovTech) que contratan para proyectos públicos.
+- **Lo que hay que saber:** el sector público rara vez escribe "Claude Code". Por eso basta con que pida IA generativa, automatización, LLMs, low-code (n8n, Power Automate) o "AI implementation". El salario anual se pasa a hora dividiendo por 2,080. Para híbridos, el mínimo de $45/h se puede negociar hasta **$40/h** si la oferta trae pensión FRS y seguro médico; marcarlo como excepción.
+- **Dónde buscar:** USAJOBS (portal de IA, filtros "Remote" y "Florida"), jobs.myflorida.com (People First), governmentjobs.com (NEOGOV: Palm Beach County, City of WPB, Boca Raton, Broward), discoverpbcounty.org, careers de FAU y Palm Beach State College, School District of Palm Beach County, GovTech Jobs, careersingovernment.com.
+
 ## Descartar automáticamente
 - Pago publicado cuyo máximo es < $45/h.
 - 100 % presencial.
