@@ -6,23 +6,25 @@ import { useLang } from '@/components/lang-provider'
 import { AppButton } from '@/components/ui/button'
 import { EmployeeAvatar } from '@/components/ui/employee-avatar'
 import type { PunchType } from '@/lib/types'
+import { STALE_BREAK_MINUTES } from '@/lib/punch-sequence'
 
 interface ValidateResult {
   employee: { id: number; name: string; photo_url: string | null }
   nextTypes: PunchType[]
+  last: { type: PunchType; time: string; minutesAgo: number } | null
 }
 
 const PUNCH_OPTIONS: Array<{
   type: PunchType
-  label: string
-  desc: string
+  labelKey: 'clockIn' | 'breakOut' | 'breakIn' | 'clockOut'
+  descKey: 'descIn' | 'descBreakOut' | 'descBreakIn' | 'descOut'
   activeStyle: string
   icon: React.ReactNode
 }> = [
   {
     type: 'IN',
-    label: 'Clock In',
-    desc: 'Start shift',
+    labelKey: 'clockIn',
+    descKey: 'descIn',
     activeStyle: 'bg-olive text-white ring-olive/50',
     icon: (
       /* Person walking in + sun — start of day */
@@ -37,8 +39,8 @@ const PUNCH_OPTIONS: Array<{
   },
   {
     type: 'BREAK_OUT',
-    label: 'Break Out',
-    desc: 'Start break',
+    labelKey: 'breakOut',
+    descKey: 'descBreakOut',
     activeStyle: 'bg-amber-500 text-white ring-amber-400/50',
     icon: (
       /* Coffee cup with steam */
@@ -53,8 +55,8 @@ const PUNCH_OPTIONS: Array<{
   },
   {
     type: 'BREAK_IN',
-    label: 'Break In',
-    desc: 'Back to work',
+    labelKey: 'breakIn',
+    descKey: 'descBreakIn',
     activeStyle: 'bg-sky-500 text-white ring-sky-400/50',
     icon: (
       /* Coffee cup with checkmark — break done */
@@ -69,8 +71,8 @@ const PUNCH_OPTIONS: Array<{
   },
   {
     type: 'OUT',
-    label: 'Clock Out',
-    desc: 'End shift',
+    labelKey: 'clockOut',
+    descKey: 'descOut',
     activeStyle: 'bg-terracotta text-white ring-terracotta/50',
     icon: (
       /* Person walking out + moon — end of day */
@@ -109,6 +111,7 @@ function ConfirmInner() {
   const [submitting, setSubmitting] = useState<PunchType | null>(null)
   const [doneType, setDoneType] = useState<PunchType | null>(null)
   const [doneTime, setDoneTime] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!code) { router.replace('/'); return }
@@ -128,18 +131,33 @@ function ConfirmInner() {
   async function confirm(type: PunchType) {
     if (!data || submitting) return
     setSubmitting(type)
+    setError(null)
     try {
       const res = await fetch('/api/punch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code, type }),
       })
-      if (!res.ok) throw new Error('punch failed')
-      const json = await res.json()
+      const json = await res.json().catch(() => null)
+
+      if (res.status === 409) {
+        // Estado desactualizado (pantalla vieja / otro fichaje entremedio).
+        // No expulsar al trabajador: mostrar el motivo y resincronizar los botones.
+        if (Array.isArray(json?.allowed)) {
+          setData({ ...data, nextTypes: json.allowed as PunchType[] })
+        }
+        setError(t.actionNotAvailable)
+        return
+      }
+      if (!res.ok || !json) {
+        setError(t.connectionError)
+        return
+      }
+
       setDoneType(json.type)
       setDoneTime(json.time)
     } catch {
-      router.replace('/')
+      setError(t.connectionError)
     } finally {
       setSubmitting(null)
     }
@@ -211,6 +229,23 @@ function ConfirmInner() {
           <h2 className="font-display text-2xl text-espresso">{data.employee.name}</h2>
         </div>
 
+        {/* Aviso: break abierto hace demasiado (olvidó marcar el regreso) */}
+        {data.last?.type === 'BREAK_OUT' && data.last.minutesAgo >= STALE_BREAK_MINUTES && (
+          <div className="mb-4 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            {t.openBreakWarning.replace('{time}', data.last.time)}
+          </div>
+        )}
+
+        {/* Error de fichaje — nunca expulsar al trabajador sin explicación */}
+        {error && (
+          <div
+            role="alert"
+            className="mb-4 rounded-xl border border-terracotta/40 bg-terracotta/10 px-4 py-3 text-sm text-espresso"
+          >
+            {error}
+          </div>
+        )}
+
         {/* 4 buttons — all valid next types are active */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           {PUNCH_OPTIONS.map((opt, i) => {
@@ -239,8 +274,8 @@ function ConfirmInner() {
                   opt.icon
                 )}
                 <div className="text-center leading-tight">
-                  <p className="font-bold">{opt.label}</p>
-                  <p className={`text-xs mt-0.5 ${isActive ? 'opacity-80' : 'opacity-40'}`}>{opt.desc}</p>
+                  <p className="font-bold">{t[opt.labelKey]}</p>
+                  <p className={`text-xs mt-0.5 ${isActive ? 'opacity-80' : 'opacity-40'}`}>{t[opt.descKey]}</p>
                 </div>
                 {isActive && (
                   <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-espresso flex items-center justify-center shadow">

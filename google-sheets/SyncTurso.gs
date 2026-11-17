@@ -144,32 +144,41 @@ function writeTimeClock(ss, punches) {
   orderedKeys.forEach(function(key) {
     var g = grouped[key];
     var clockIn = '', breakOut = '', breakIn = '', clockOut = '';
-    var workedMin = 0, openSeg = null;
+    var workedMin = 0, openSeg = null, segments = 0, outCount = 0, inCount = 0;
 
     g.events.forEach(function(ev) {
-      if (ev.type === 'IN'        && !clockIn)  clockIn  = ev.hhmm;
+      // Entrada = la PRIMERA del día; salida = la ÚLTIMA del día.
+      // (Si marca Clock Out para almorzar y vuelve a entrar, la fila debe
+      //  mostrar la salida real del día, no la del mediodía.)
+      if (ev.type === 'IN')        { if (!clockIn) clockIn = ev.hhmm; inCount++; }
       if (ev.type === 'BREAK_OUT' && !breakOut) breakOut = ev.hhmm;
       if (ev.type === 'BREAK_IN'  && !breakIn)  breakIn  = ev.hhmm;
-      if (ev.type === 'OUT'       && !clockOut) clockOut = ev.hhmm;
+      if (ev.type === 'OUT')       { clockOut = ev.hhmm; outCount++; }
       if (ev.type === 'IN' || ev.type === 'BREAK_IN') {
         openSeg = ev.hhmm;
       }
       if ((ev.type === 'OUT' || ev.type === 'BREAK_OUT') && openSeg) {
         workedMin += minutesDiff(openSeg, ev.hhmm);
         openSeg = null;
+        segments++;
       }
     });
 
     var hours  = workedMin > 0 ? (workedMin / 60).toFixed(2) : '';
     var status = clockOut ? 'Complete' : (clockIn ? 'Open shift' : 'No clock-in');
+    // Marcar los días partidos en varios turnos: las 4 columnas de horario
+    // no alcanzan para representarlos y "Hours Worked" es la cifra válida.
+    if (clockOut && (outCount > 1 || inCount > 1)) {
+      status = 'Complete (' + segments + ' segments)';
+    }
     rows.push([g.last_name, g.first_name, g.date, clockIn, breakOut, breakIn, clockOut, hours, status]);
   });
 
   if (rows.length > 0) {
     sheet.getRange(2, 1, rows.length, headers.length).setValues(rows);
     rows.forEach(function(row, i) {
-      var bg = row[8] === 'Complete'  ? '#eef6e3'
-             : row[8] === 'Open shift' ? '#fff9e6'
+      var bg = row[8].indexOf('Complete') === 0 ? '#eef6e3'
+             : row[8] === 'Open shift'          ? '#fff9e6'
              : '#fdecea';
       sheet.getRange(i + 2, 1, 1, headers.length).setBackground(bg);
     });

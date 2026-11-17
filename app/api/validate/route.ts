@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getEmployeeByCode, getLastPunchToday } from '@/lib/queries'
-import { todaySite } from '@/lib/timezone'
+import { todaySite, timeFromTs, nowSite, tsToMs } from '@/lib/timezone'
 import { NEXT_PUNCHES } from '@/lib/punch-sequence'
 
 const schema = z.object({ code: z.string().min(1) })
@@ -25,5 +25,12 @@ export async function POST(req: Request) {
   return NextResponse.json({
     employee: { id: employee.id, name: employee.name, photo_url: employee.photo_url },
     nextTypes,
+    last: last
+      ? {
+          type: last.type,
+          time: timeFromTs(last.ts),
+          minutesAgo: Math.max(0, Math.round((tsToMs(nowSite()) - tsToMs(last.ts)) / 60000)),
+        }
+      : null,
   })
 }

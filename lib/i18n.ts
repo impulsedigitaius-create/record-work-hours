@@ -37,6 +37,15 @@ export const dict = {
     // Punch action labels (break)
     breakOut: 'Break Out',
     breakIn: 'Break In',
+    // Punch action descriptions
+    descIn: 'Start shift',
+    descBreakOut: 'Start lunch / break',
+    descBreakIn: 'Back from lunch',
+    descOut: 'End of the day',
+    // Punch errors
+    actionNotAvailable: 'That option is not available right now. Use one of the highlighted buttons.',
+    connectionError: 'Connection problem. Please try again.',
+    openBreakWarning: 'Your break has been open since {time}. Tap "Break In" if you are back at work.',
     // Punch success messages
     clockedBreakOutAt: 'Break started at',
     clockedBreakInAt: 'Back from break at',
@@ -124,6 +133,13 @@ export const dict = {
     BREAK_IN: 'REGRESO DE BREAK',
     breakOut: 'Salida a Break',
     breakIn: 'Regreso de Break',
+    descIn: 'Iniciar jornada',
+    descBreakOut: 'Salir a almorzar / break',
+    descBreakIn: 'Regreso del almuerzo',
+    descOut: 'Fin del día',
+    actionNotAvailable: 'Esa opción no está disponible ahora. Usá uno de los botones resaltados.',
+    connectionError: 'Problema de conexión. Intentá de nuevo.',
+    openBreakWarning: 'Tu break está abierto desde las {time}. Tocá "Regreso de Break" si ya volviste.',
     clockedBreakOutAt: 'Break iniciado a las',
     clockedBreakInAt: 'Regreso de break a las',
     today: 'Hoy',
